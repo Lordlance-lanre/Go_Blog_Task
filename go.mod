@@ -1,6 +1,9 @@
 module Go_Blog_Task
 
+
 go 1.25.7
+
+// heroku goVersion go1.25.7
 
 require (
 	filippo.io/edwards25519 v1.2.0 // indirect

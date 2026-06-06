@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v3"
 )
 
@@ -114,4 +115,8 @@ func Login(c fiber.Ctx) error {
 		"user":    userData,
 		"token":   token,
 	})
+}
+
+type Claims struct{
+	jwt.StandardClaims
 }
