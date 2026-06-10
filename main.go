@@ -2,21 +2,22 @@ package main
 
 import (
 	database "Go_Blog_Task/Database"
-	"os"
+	"Go_Blog_Task/routes"
 	"log"
+	"os"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/joho/godotenv"
-	"Go_Blog_Task/routes"
 )
 
 func main() {
 	database.ConnectDB()
-	err:=godotenv.Load()
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file:", err)
 	}
-	port:=os.Getenv("PORT")
-	app:=fiber.New()
+	port := os.Getenv("PORT")
+	app := fiber.New()
 	routes.Setup(app)
-	app.Listen(":"+port)
+	app.Listen(":" + port)
 }
