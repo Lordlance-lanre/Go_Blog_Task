@@ -26,9 +26,8 @@ func Setup(app *fiber.App) {
 	})
 	auth.Post("/login", loginLimiter, controller.Login)
 
-	app.Use(middleware.AuthGuard) //anywhere this middleware is placed signifies, the routes that should be authenticated.
-
 	blog := app.Group("/api/blog")
+	blog.Use(middleware.AuthGuard)
 	blog.Post("/create", controller.CreatePost)
 	blog.Get("all-posts", controller.GetAllPost)
 	blog.Get("/user-posts", controller.GetUniquePosts)
@@ -36,8 +35,9 @@ func Setup(app *fiber.App) {
 	blog.Put("/update-post/:id", controller.UpdateBlog)
 	blog.Delete("/delete-post/:id", controller.DeleteBlogPost)
 
+
 	image := app.Group("/api/image")
-	image.Post("/upload", controller.UploadImages)
+	image.Post("/upload",middleware.AuthGuard, controller.UploadImages)
 	image.Get("/uploads/*", static.New("./uploads"))
 
 	// auth.Get("/user", controller.User)
