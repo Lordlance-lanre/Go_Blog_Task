@@ -105,7 +105,11 @@ func Login(c fiber.Ctx) error {
 		Name:     "jwt",
 		Value:    token,
 		Expires:  time.Now().Add(24 * time.Hour * 24),
-		HTTPOnly: true, Path: "/"}
+		 HTTPOnly: true,
+		Secure:   true,
+		SameSite: "None",
+		Path:     "/",
+	}
 	c.Cookie(&cookie)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
