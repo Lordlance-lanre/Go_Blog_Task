@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Go_Blog_Task/Database"
+	database "Go_Blog_Task/Database"
 	"Go_Blog_Task/models"
 	"fmt"
 	"strconv"
@@ -51,7 +51,7 @@ func Register(c fiber.Ctx) error {
 			"message": "Email already exists",
 		})
 	}
-	
+
 	userData = models.User{
 		FirstName: data["first_name"].(string),
 		LastName:  data["last_name"].(string),
@@ -59,7 +59,7 @@ func Register(c fiber.Ctx) error {
 		Phone:     data["phone"].(string),
 		// Password: data["password"].(string),
 	}
-	
+
 	userData.SetPassword(data["password"].(string))
 	err := database.DB.Create(&userData).Error
 	if err != nil {
@@ -67,13 +67,12 @@ func Register(c fiber.Ctx) error {
 			"message": "Failed to register user",
 		})
 	}
-	
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "User registered successfully",
 		"user":    userData,
 	})
 }
-
 
 func Login(c fiber.Ctx) error {
 	var data map[string]interface{}
@@ -95,7 +94,7 @@ func Login(c fiber.Ctx) error {
 		})
 	}
 	token, err := utils.GenerateJWT(strconv.Itoa(int(userData.Id)))
-	
+
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Failed to generate token",
@@ -106,8 +105,7 @@ func Login(c fiber.Ctx) error {
 		Name:     "jwt",
 		Value:    token,
 		Expires:  time.Now().Add(24 * time.Hour * 24),
-		HTTPOnly: true,
-	}
+		HTTPOnly: true, Path: "/"}
 	c.Cookie(&cookie)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
@@ -117,6 +115,6 @@ func Login(c fiber.Ctx) error {
 	})
 }
 
-type Claims struct{
+type Claims struct {
 	jwt.StandardClaims
 }
