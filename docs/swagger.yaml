@@ -29,7 +29,7 @@ definitions:
         description: Password  []byte `json:"-"` // to hide password in response
         type: string
     type: object
-host: localhost:8080
+host: https://go-blog-task.onrender.com/swagger/index.html#
 info:
   contact: {}
   description: REST API for the Go Blog application.
@@ -308,5 +308,5 @@ paths:
       tags:
       - images
 schemes:
-- http
+- https
 swagger: "2.0"

@@ -16,9 +16,9 @@ import (
 // @title Go Blog API
 // @version 1.0
 // @description REST API for the Go Blog application.
-// @host localhost:8080
+// @host https://go-blog-task.onrender.com/swagger/index.html#
 // @BasePath /
-// @schemes http
+// @schemes https
 
 func main() {
 	database.ConnectDB()
