@@ -9,7 +9,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "go-blog-task.onrender.com/swagger/index.html#",
+    "host": "go-blog-task.onrender.com",
     "basePath": "/",
     "paths": {
         "/api/auth/login": {

@@ -16,7 +16,7 @@ import (
 // @title Go Blog API
 // @version 1.0
 // @description REST API for the Go Blog application.
-// @host go-blog-task.onrender.com/swagger/index.html#
+// @host go-blog-task.onrender.com
 // @BasePath /
 // @schemes https
 
