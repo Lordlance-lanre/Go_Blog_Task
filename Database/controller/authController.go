@@ -20,6 +20,17 @@ func validateEmail(email string) bool {
 	return regisMail.MatchString(email)
 }
 
+// Register godoc
+// @Summary Register a user
+// @Description Creates a new user account.
+// @Tags authentication
+// @Accept json
+// @Produce json
+// @Param user body map[string]interface{} true "User registration data"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /api/auth/register [post]
 func Register(c fiber.Ctx) error {
 	var data map[string]interface{}
 
@@ -41,8 +52,6 @@ func Register(c fiber.Ctx) error {
 			"message": "Invalid email format",
 		})
 	}
-
-	//check for existing email
 
 	database.DB.Where("email = ?", strings.TrimSpace(data["email"].(string))).First(&userData)
 
@@ -74,6 +83,17 @@ func Register(c fiber.Ctx) error {
 	})
 }
 
+// Login godoc
+// @Summary Login a user
+// @Description Authenticates a user and returns a JWT.
+// @Tags authentication
+// @Accept json
+// @Produce json
+// @Param credentials body map[string]interface{} true "Login credentials"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /api/auth/login [post]
 func Login(c fiber.Ctx) error {
 	var data map[string]interface{}
 	if err := c.Bind().Body(&data); err != nil {
@@ -104,8 +124,8 @@ func Login(c fiber.Ctx) error {
 	cookie := fiber.Cookie{
 		Name:     "jwt",
 		Value:    token,
-		Expires:  time.Now().Add(24 * time.Hour * 24),
-		 HTTPOnly: true,
+		Expires:  time.Now().Add(100 * time.Second),
+		HTTPOnly: true,
 		Secure:   true,
 		SameSite: "None",
 		Path:     "/",

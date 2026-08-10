@@ -1,0 +1,28 @@
+{
+  "name": "go_blog_task",
+  "version": "1.0.0",
+  "description": "Blog API Task",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+     "dev": "npm run start:dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lordlance-lanre/Go_Blog_Task.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Lordlance-lanre/Go_Blog_Task/issues"
+  },
+  "homepage": "https://github.com/Lordlance-lanre/Go_Blog_Task#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

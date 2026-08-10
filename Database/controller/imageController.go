@@ -17,6 +17,18 @@ func randomString(n int) string {
 	return string(b)
 }
 
+// UploadImages godoc
+// @Summary Upload an image
+// @Description Uploads an image file and returns its URL.
+// @Tags images
+// @Accept multipart/form-data
+// @Produce json
+// @Param image formData file true "Image file"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/image/upload [post]
 func UploadImages(c fiber.Ctx) error {
 	form, err := c.MultipartForm()
 	if err != nil {

@@ -5,6 +5,9 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func AuthGuard(c fiber.Ctx) error {
 	cookie:= c.Cookies("jwt")
 

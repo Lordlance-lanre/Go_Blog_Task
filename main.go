@@ -6,10 +6,19 @@ import (
 	"log"
 	"os"
 	"strings"
+	 _ "Go_Blog_Task/docs"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/joho/godotenv"
+	"github.com/gofiber/contrib/v3/swaggo"
 )
+
+// @title Go Blog API
+// @version 1.0
+// @description REST API for the Go Blog application.
+// @host localhost:8080
+// @BasePath /
+// @schemes http
 
 func main() {
 	database.ConnectDB()
@@ -19,6 +28,8 @@ func main() {
 	}
 	port := os.Getenv("PORT")
 	app := fiber.New()
+
+	app.Get("/swagger/*", swaggo.HandlerDefault)
 
 	// Dynamic CORS middleware: allow origins from env or Vercel deployments
 	app.Use(func(c fiber.Ctx) error {

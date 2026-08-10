@@ -10,6 +10,18 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
+// CreatePost godoc
+// @Summary Create a blog post
+// @Description Creates a new blog post.
+// @Tags blogs
+// @Accept json
+// @Produce json
+// @Param blog body models.Blog true "Blog post data"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/create [post]
 func CreatePost(c fiber.Ctx) error {
 	var blog models.Blog
 	if err := c.Bind().Body(&blog); err != nil {
@@ -30,7 +42,16 @@ func CreatePost(c fiber.Ctx) error {
 	})
 
 }
-
+// GetAllPost godoc
+// @Summary Get all blog posts
+// @Description Returns a paginated list of blog posts.
+// @Tags blogs
+// @Produce json
+// @Param page query int false "Page number" default(1)
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/all-posts [get]
 func GetAllPost(c fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	limit := 5
@@ -52,6 +73,16 @@ func GetAllPost(c fiber.Ctx) error {
 		},
 	})
 }
+// GetSinglePost godoc
+// @Summary Get a single blog post
+// @Description Returns details of a specific blog post.
+// @Tags blogs
+// @Produce json
+// @Param id path int true "Post ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/:id [get]
 
 func GetSinglePost(c fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
@@ -68,6 +99,19 @@ func GetSinglePost(c fiber.Ctx) error {
 	})
 }
 
+// UpdateBlog godoc
+// @Summary Update a blog post
+// @Description Updates an existing blog post by its ID.
+// @Tags blogs
+// @Accept json
+// @Produce json
+// @Param id path int true "Blog post ID"
+// @Param blog body models.Blog true "Updated blog post data"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/update-post/{id} [put]
 func UpdateBlog(c fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	blog := models.Blog{
@@ -92,7 +136,15 @@ func UpdateBlog(c fiber.Ctx) error {
 	})
 
 }
-
+// GetUniquePosts godoc
+// @Summary Get the current user's posts
+// @Description Returns all blog posts belonging to the authenticated user.
+// @Tags blogs
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 404 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/user-posts [get]
 func GetUniquePosts(c fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 	id, _ := utils.ParseJWT(cookie)
@@ -110,6 +162,17 @@ func GetUniquePosts(c fiber.Ctx) error {
 
 }
 
+// DeleteBlogPost godoc
+// @Summary Delete a blog post
+// @Description Deletes a blog post by its ID.
+// @Tags blogs
+// @Produce json
+// @Param id path int true "Blog post ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 404 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security ApiKeyAuth
+// @Router /api/blog/delete-post/{id} [delete]
 func DeleteBlogPost(c fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	blog := models.Blog{
